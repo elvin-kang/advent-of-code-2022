@@ -138,6 +138,4 @@ with open('input.txt', 'r') as fin:
 
 # root.print_filetree()
 # print()
-# print(root.calculate_sum())
-
-print(root.find_directory_to_delete())
+print(root.calculate_sum())
