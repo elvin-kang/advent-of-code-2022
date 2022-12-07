@@ -100,7 +100,6 @@ cur_dir = "/"
 
 root = File(-1, "/", True)
 cur = root
-stack = ["/"]
 
 with open('input.txt', 'r') as fin:
     for line in fin:
@@ -111,19 +110,15 @@ with open('input.txt', 'r') as fin:
                 cur_dir = terminal[2]  # filename
                 if cur_dir == "/":
                     cur = root
-                    stack = ["/"]
                 else:
                     name = terminal[2]  # filename
                     if name == "..":
-                        stack.pop()
-                        print(stack)
                         root.print_filetree()
                         cur = cur.parent
                     else:
-                        stack.append(name)
                         cur = cur.children[name]
             elif cmd == "ls":
-                listing = True
+                pass
             else:
                 raise ValueError("Invalid command")
         else:
@@ -131,7 +126,7 @@ with open('input.txt', 'r') as fin:
                 new_dir = File(-1, terminal[1], is_dir=True, parent=cur)
                 cur.children[terminal[1]] = new_dir
             elif terminal[0].isnumeric():
-                new_file = File(int(terminal[0]), terminal[1], False)
+                new_file = File(int(terminal[0]), terminal[1], parent=cur)
                 cur.children[terminal[1]] = new_file
             else:
                 raise ValueError("Invalid input")
